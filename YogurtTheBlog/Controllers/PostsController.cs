@@ -27,5 +27,10 @@ namespace YogurtTheBlog.Controllers {
                 throw;
             }
         }
+
+        [HttpGet("{postUrl}")]
+        public async Task<ActionResult<Post>> GetPostAsync(string postUrl) {
+            return await _posts.GetPost(postUrl);
+        }
     }
 }
