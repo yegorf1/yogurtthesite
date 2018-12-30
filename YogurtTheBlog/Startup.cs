@@ -1,3 +1,6 @@
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,8 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
+using YogurtTheBlog.Models;
 using YogurtTheBlog.Repositories;
 
 namespace YogurtTheBlog {
@@ -25,7 +30,45 @@ namespace YogurtTheBlog {
                 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            // In production, the React files will be served from this directory
+            IConfigurationSection authSettingsSection = Configuration.GetSection("Auth");
+            services.Configure<AuthSettings>(Configuration.GetSection("Auth"));
+            
+            
+            var authSettings = authSettingsSection.Get<AuthSettings>();
+            byte[] key = Encoding.ASCII.GetBytes(authSettings.Secret);
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.Events = new JwtBearerEvents
+                    {
+                        OnTokenValidated = async context =>
+                        {
+                            var userService = context.HttpContext.RequestServices.GetRequiredService<IUsersRepository>();
+                            string userId = context.Principal.Identity.Name;
+                            User user = await userService.GetById(userId);
+                            if (user == null)
+                            {
+                                context.Fail("Unauthorized");
+                            }
+                        }
+                    };
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+ 
+            services.AddSingleton<IUsersRepository, UsersRepository>();
+
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
         }
 
@@ -46,6 +89,8 @@ namespace YogurtTheBlog {
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseAuthentication();
+            
             app.UseMvc(routes => {
                 routes.MapRoute(
                     name: "default",
