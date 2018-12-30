@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Driver;
+using YogurtTheBlog.Repositories;
 
 namespace YogurtTheBlog {
     public class Startup {
@@ -16,6 +19,10 @@ namespace YogurtTheBlog {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            // move to config
+            services.AddSingleton(new MongoClient().GetDatabase("yogurttheblog"));
+            services.AddSingleton<PostsRepository>();
+                
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the React files will be served from this directory
@@ -32,6 +39,9 @@ namespace YogurtTheBlog {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
+            var camelCaseConventionPack = new ConventionPack { new CamelCaseElementNameConvention() };
+            ConventionRegistry.Register("CamelCase", camelCaseConventionPack, type => true);
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
