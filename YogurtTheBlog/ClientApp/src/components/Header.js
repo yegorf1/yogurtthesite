@@ -6,7 +6,12 @@ export default class Header extends React.Component {
     render() {
         return <div id="header">
             <div className="logo">
-                <h1><Link to="/">Yogurt The Horse</Link></h1>
+                <h1>
+                    Yogurt The{' '} 
+                    <Link to="/">Блог</Link>
+                    /
+                    <Link to="/resume">Резюме</Link>
+                </h1>
             </div>
             <div className="separator"/>
         </div>;

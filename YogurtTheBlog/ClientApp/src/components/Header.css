@@ -8,7 +8,15 @@
 
 }
 
+h1 {
+    display: inline;
+}
+
 h1 > a:visited {
+    color: black;
+}
+
+h1 > a {
     color: black;
 }
 
