@@ -9,3 +9,7 @@ body {
 .content {
     width: 100%;
 }
+
+a {
+    color: blue;
+}
