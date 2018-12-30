@@ -13,7 +13,7 @@ namespace YogurtTheBlog.Repositories {
         public PostsRepository(IMongoDatabase database) {
             BsonClassMap.RegisterClassMap<Post>(cm => {
                 cm.AutoMap();
-                cm.MapIdProperty(p => p.ConstantUri).SetIdGenerator(StringObjectIdGenerator.Instance);
+                cm.MapIdProperty(p => p.ConstantUrl).SetIdGenerator(StringObjectIdGenerator.Instance);
             });
 
             _postsCollection = database.GetCollection<Post>("posts");
@@ -29,7 +29,9 @@ namespace YogurtTheBlog.Repositories {
                 throw new ArgumentOutOfRangeException(nameof(pageSize), "Page size must be greater than 0");
             }
             
-            IFindFluent<Post, Post> posts = _postsCollection.Find(FilterDefinition<Post>.Empty);
+            IFindFluent<Post, Post> posts = _postsCollection
+                .Find(FilterDefinition<Post>.Empty)
+                .SortByDescending(p => p.PublishDate);
             return new Page<Post> {
                 PagesCount = await posts.CountDocumentsAsync(),
                 PageNumber = page,
