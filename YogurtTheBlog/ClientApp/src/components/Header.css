@@ -1,0 +1,21 @@
+#header {
+    width: 100%;
+
+    font-family: 'PT Sans', sans-serif;
+}
+
+#header>.logo {
+    display: table;
+    margin: 0 auto;
+
+}
+
+.logo > a:visited {
+    color: black;
+}
+
+.separator {
+    width: 100%;
+    background-color: black;
+    height: 2px;
+}
