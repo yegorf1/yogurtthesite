@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Driver;
@@ -28,10 +27,10 @@ namespace YogurtTheBlog.Repositories {
             if (pageSize < 1) {
                 throw new ArgumentOutOfRangeException(nameof(pageSize), "Page size must be greater than 0");
             }
-            
+
             IFindFluent<Post, Post> posts = _postsCollection
                 .Find(FilterDefinition<Post>.Empty)
-                .SortByDescending(p => p.PublishDate);
+                .Sort(new SortDefinitionBuilder<Post>().Descending(p => p.PublishDate));
             return new Page<Post> {
                 PagesCount = await posts.CountDocumentsAsync(),
                 PageNumber = page,
