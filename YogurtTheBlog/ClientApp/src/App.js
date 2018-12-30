@@ -3,15 +3,13 @@ import React from 'react';
 import { Route } from 'react-router';
 import Layout from './components/Layout';
 import Home from './components/Home';
-import Counter from './components/Counter';
-import FetchData from './components/FetchData';
 import Post from "./components/Post";
+import Resume from "./components/Resume";
 
 export default () => (
   <Layout>
     <Route exact path='/' component={Home} />
     <Route path='/p/:postUrl' component={Post} />
-    <Route path='/counter' component={Counter} />
-    <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
+    <Route exact path='/resume' component={Resume} />
   </Layout>
 );
