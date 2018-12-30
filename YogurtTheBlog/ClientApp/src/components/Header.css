@@ -10,12 +10,12 @@
 
 }
 
-.logo > a:visited {
+h1 > a:visited {
     color: black;
 }
 
 .separator {
     width: 100%;
     background-color: black;
-    height: 2px;
+    height: 4px;
 }
