@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -17,8 +18,14 @@ namespace YogurtTheBlog.Controllers {
         }
        
         [HttpGet]
-        public async Task<Page<Post>> PagedPostsAsync([FromQuery]int? page, [FromQuery]int? pageSize) {
-            return await _posts.GetPosts(page ?? 1, pageSize ?? 15);
+        public async Task<ActionResult<Page<Post>>> PagedPostsAsync([FromQuery]int? page, [FromQuery]int? pageSize) {
+            try {
+                return await _posts.GetPosts(page ?? 1, pageSize ?? 15);
+            }
+            catch (ArgumentOutOfRangeException ex) {
+                // add bad request
+                throw;
+            }
         }
     }
 }
