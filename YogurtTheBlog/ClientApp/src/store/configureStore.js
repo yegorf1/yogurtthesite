@@ -2,9 +2,12 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import * as Posts from "./Posts";
+import * as Auth from "./Auth";
+
 export default function configureStore (history, initialState) {
   const reducers = {
-    posts: Posts.reducer
+    posts: Posts.reducer,
+    auth: Auth.reducer
   };
 
   const middleware = [
