@@ -47,21 +47,23 @@ class LoginPage extends React.Component {
                         <label htmlFor="username">Логин</label>
                         <input type="text" className="form-control" name="username" value={username}
                                onChange={this.handleChange}/>
-                        {submitted && !username &&
-                        <div className="help-block">Username is required</div>
+                        {
+                            submitted && !username &&
+                            <div className="help-block">Нужен логин</div>
                         }
                     </div>
                     <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Пароль</label>
                         <input type="password" className="form-control" name="password" value={password}
                                onChange={this.handleChange}/>
-                        {submitted && !password &&
-                        <div className="help-block">Password is required</div>
+                        {
+                            submitted && !password &&
+                            <div className="help-block">Нужен пароль</div>
                         }
                     </div>
                     <div className="form-group">
-                        <button className="btn btn-primary">Login</button>
-                        <Link to="/register" className="float-right">Register</Link>
+                        <button>Вход</button>
+                        <Link to="/register" className="float-right">Регистрация</Link>
                     </div>
                 </form>
             </div>

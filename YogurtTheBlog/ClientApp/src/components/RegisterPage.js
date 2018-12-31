@@ -21,8 +21,8 @@ class RegisterPage extends React.Component {
     }
 
     handleChange(event) {
-        const { name, value } = event.target;
-        const { user } = this.state;
+        const {name, value} = event.target;
+        const {user} = this.state;
         this.setState({
             user: {
                 ...user,
@@ -34,37 +34,41 @@ class RegisterPage extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        this.setState({ submitted: true });
-        const { user } = this.state;
+        this.setState({submitted: true});
+        const {user} = this.state;
         if (user.username && user.password) {
             this.props.register(user);
         }
     }
 
     render() {
-        const { user, submitted } = this.state;
+        const {user, submitted} = this.state;
         return (
             <div className="centered-content small-form box">
                 <h2>Регистрация</h2>
                 <p>Ты уверен, что ты на той страничке?</p>
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
-                        <label htmlFor="username">Имя</label>
-                        <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />
-                        {submitted && !user.username &&
-                        <div className="help-block">Username is required</div>
+                        <label htmlFor="username">Логин</label>
+                        <input type="text" className="form-control" name="username" value={user.username}
+                               onChange={this.handleChange}/>
+                        {
+                            submitted && !user.username &&
+                            <div className="help-block">Нужен логин</div>
                         }
                     </div>
                     <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
                         <label htmlFor="password">Пароль</label>
-                        <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
-                        {submitted && !user.password &&
-                        <div className="help-block">Password is required</div>
+                        <input type="password" className="form-control" name="password" value={user.password}
+                               onChange={this.handleChange}/>
+                        {
+                            submitted && !user.password &&
+                            <div className="help-block">Нужен пароль</div>
                         }
                     </div>
                     <div className="form-group">
-                        <button>Register</button>
-                        <Link to="/login" className="float-right">Cancel</Link>
+                        <button>Регистрация</button>
+                        <Link to="/login" className="float-right">Вход</Link>
                     </div>
                 </form>
             </div>
