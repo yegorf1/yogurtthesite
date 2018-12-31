@@ -7,6 +7,7 @@ import Post from "./components/Post";
 import Resume from "./components/Resume";
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
+import NewPostPage from "./components/NewPostPage";
 
 export default () => (
     <Layout>
@@ -15,5 +16,6 @@ export default () => (
         <Route exact path='/resume' component={Resume}/>
         <Route exact path='/login' component={LoginPage}/>
         <Route exact path='/register' component={RegisterPage}/>
+        <Route exact path='/new' component={NewPostPage}/>
     </Layout>
 );
