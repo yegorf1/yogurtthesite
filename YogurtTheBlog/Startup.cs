@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
+using Newtonsoft.Json.Serialization;
 using YogurtTheBlog.Models;
 using YogurtTheBlog.Repositories;
 
@@ -28,7 +29,9 @@ namespace YogurtTheBlog {
             services.AddSingleton(new MongoClient().GetDatabase("yogurttheblog"));
             services.AddSingleton<PostsRepository>();
                 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());;
 
             IConfigurationSection authSettingsSection = Configuration.GetSection("Auth");
             services.Configure<AuthSettings>(Configuration.GetSection("Auth"));
