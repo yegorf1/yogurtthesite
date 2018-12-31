@@ -45,7 +45,6 @@ class NewPostPage extends React.Component {
     }
 
     static textAreaAdjust(event) {
-        event.target.style.height = "1px";
         event.target.style.height = (event.target.scrollHeight) + "px";
     }
 
