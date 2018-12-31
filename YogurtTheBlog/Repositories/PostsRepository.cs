@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson.Serialization;
@@ -49,8 +50,12 @@ namespace YogurtTheBlog.Repositories {
         }
 
         public async Task AddPost(Post post) {
-            // TODO: add some exception handling
-            await _postsCollection.InsertOneAsync(post);
+            try {
+                await _postsCollection.InsertOneAsync(post);
+            }
+            catch (MongoWriteException ex) {
+                throw new DuplicateNameException($"Post with name {post.ConstantUrl} already exists");
+            }
         }
     }
 }
