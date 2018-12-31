@@ -35,7 +35,7 @@ namespace YogurtTheBlog.Controllers {
             return await _posts.GetPost(postUrl);
         }
         
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody] Post post) {
             post.PublishDate = DateTime.Now;
