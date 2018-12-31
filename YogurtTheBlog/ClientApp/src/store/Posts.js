@@ -1,11 +1,17 @@
 import * as Posts from "../services/Posts";
+import history from '../helpers/history';
 
 const requestPostsType = 'REQUEST_POSTS';
 const receivePostsType = 'RECEIVE_POSTS';
 const errorPostsType = 'ERROR_POSTS';
+
 const requestSinglePostType = 'REQUEST_SINGLE_POST';
 const receiveSinglePostType = 'RECEIVE_SINGLE_POST';
 const errorReceivingPostType = 'ERROR_SINGLE_POST'; 
+
+const createNewPostType = 'CREATE_POST';
+const postCreatedType   = 'POST_CREATED';
+const postCreateFail    = 'FAIL_CREATE_POST';
 
 const initialState = {
     posts: [],
@@ -51,13 +57,38 @@ export const actionCreators = {
             .then(post => {
                 dispatch({
                     type: receiveSinglePostType, post
-                })
+                });
             })
             .catch(error => {
                 dispatch({
                     type: errorReceivingPostType
                 })
             })
+    },
+    createPost: post => (dispatch, getState) => {
+        if (getState().isLoading) {
+            return;
+        }
+        
+        dispatch({type: createNewPostType});
+        
+        Posts
+            .newPost(post)
+            .then(resp => {
+                dispatch({
+                    type: postCreatedType
+                });
+                history.push('/p/' + post.constantUrl);
+            })
+            .catch(
+                error => {
+                    dispatch({
+                        type: postCreateFail,
+                        error: error
+                    });
+                    alert(error);
+                }
+            )
     }
 };
 
@@ -103,6 +134,27 @@ export const reducer = (state, action) => {
             isLoading: false,
             currentPost: action.post
         }
+    }
+    
+    if (action.type === createNewPostType) {
+        return {
+            ...state,
+            isLoading: true
+        };
+    }
+    
+    if (action.type === postCreateFail) {
+        return {
+            ...state,
+            isLoading: false
+        };
+    }
+    
+    if (action.type === postCreatedType) {
+        return {
+            ...state,
+            isLoading: false
+        };
     }
 
     return state;
