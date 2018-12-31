@@ -1,3 +1,5 @@
+import * as Posts from "../services/Posts";
+
 const requestPostsType = 'REQUEST_POSTS';
 const receivePostsType = 'RECEIVE_POSTS';
 const errorPostsType = 'ERROR_POSTS';
@@ -15,17 +17,17 @@ const initialState = {
 };
 
 export const actionCreators = {
-    requestPosts: page => async (dispatch, getState) => {
+    requestPosts: page => (dispatch, getState) => {
         if (getState().isLoading) {
             return;
         }
 
         dispatch({type: requestPostsType, page});
 
-        const url = `api/posts/?page=${page}&pageSize=${getState().pageSize}`;
-        fetch(url)
-            .then(async response => {
-                const {pageNumber, pageSize, pagesCount, elements} = await response.json();
+        Posts
+            .getPagedPosts(page, getState().pageSize)
+            .then(response => {
+                const {pageNumber, pageSize, pagesCount, elements} = response;
                 dispatch({
                     type: receivePostsType,
                     posts: elements,
@@ -39,22 +41,19 @@ export const actionCreators = {
                 error: error
             }));
     },
-    requestSinglePost: postUrl => async (dispatch, getState) => {
+    requestSinglePost: postUrl => (dispatch, getState) => {
         if (getState().isLoading) {
             return;
         }
         
         dispatch({type: requestSinglePostType, postUrl});
-        const url = `api/posts/${postUrl}`;
-        fetch(url)
-            .then(async response => {
-                const post = await response.json();
-                
+        Posts.getPost(postUrl)
+            .then(post => {
                 dispatch({
                     type: receiveSinglePostType, post
                 })
             })
-            .catch(async error => {
+            .catch(error => {
                 dispatch({
                     type: errorReceivingPostType
                 })
