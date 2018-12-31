@@ -24,17 +24,18 @@ namespace YogurtTheBlog {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            // move to config
-            services.AddSingleton(new MongoClient().GetDatabase("yogurttheblog"));
-            services.AddSingleton<PostsRepository>();
-                
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());;
 
             IConfigurationSection authSettingsSection = Configuration.GetSection("Auth");
-            services.Configure<AuthSettings>(Configuration.GetSection("Auth"));
-            
+            services.Configure<AuthSettings>(authSettingsSection);
+            services.Configure<PublishSettings>("Publish", Configuration);
+
+            var databaseSettings = Configuration.GetSection("Database").Get<DatabaseSettings>();
+            services.AddSingleton(new MongoClient().GetDatabase(databaseSettings.Name));
+            services.AddSingleton<PostsRepository>();
+                
             
             var authSettings = authSettingsSection.Get<AuthSettings>();
             byte[] key = Encoding.ASCII.GetBytes(authSettings.Secret);
