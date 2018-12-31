@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,8 +40,15 @@ namespace YogurtTheBlog.Controllers {
         public async Task<IActionResult> CreatePost([FromBody] Post post) {
             post.PublishDate = DateTime.Now;
             post.Author = User.Identity.Name;
-            await _posts.AddPost(post);
-            return Ok();
+            try {
+                await _posts.AddPost(post);
+                return Ok();
+            }
+            catch (DuplicateNameException ex) {
+                return BadRequest(new {
+                    message = ex.Message
+                });
+            }
         }
     }
 }
