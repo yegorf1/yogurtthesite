@@ -4,21 +4,25 @@
   margin-bottom: 8px;
 }
 
-#header>.logo {
+#header .logo {
   display: table;
   margin: 0 auto;
 
+}
+
+.logo div {
+  display: inline-block;
 }
 
 h1 {
   display: inline;
 }
 
-h1 > a:visited {
+h1 a:visited {
   color: black;
 }
 
-h1 > a {
+h1 a {
   color: black;
 }
 
