@@ -1,4 +1,4 @@
-import './App.css';
+import './stylesheets/App.css';
 import React from 'react';
 import {Route} from 'react-router';
 import Layout from './components/Layout';

@@ -1,0 +1,29 @@
+#header {
+  width: 100%;
+
+  margin-bottom: 8px;
+}
+
+#header>.logo {
+  display: table;
+  margin: 0 auto;
+
+}
+
+h1 {
+  display: inline;
+}
+
+h1 > a:visited {
+  color: black;
+}
+
+h1 > a {
+  color: black;
+}
+
+.separator {
+  width: 100%;
+  background-color: black;
+  height: 4px;
+}
