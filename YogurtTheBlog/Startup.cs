@@ -1,9 +1,8 @@
+using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
@@ -56,6 +55,15 @@ namespace YogurtTheBlog {
                             if (user == null)
                             {
                                 context.Fail("Unauthorized");
+                            }
+                            else {
+                                if (user.IsAdmin) {
+                                    context.Principal.AddIdentity(new ClaimsIdentity (
+                                        new[] {
+                                            new Claim(ClaimTypes.Role, "Admin") 
+                                        }
+                                    ));
+                                }
                             }
                         }
                     };
