@@ -21,7 +21,7 @@ button {
     
     font-family: Oswald, sans-serif;
     width: 96px;
-    height: 24px;
+    height: 32px;
 }
 
 .form-control {
@@ -34,6 +34,10 @@ button {
 }
 
 .float-right { float: right; }
+
+input {
+    font-family: 'Oswald', sans-serif;
+}
 
 input[type="password"] {
     border: 2px solid black;
