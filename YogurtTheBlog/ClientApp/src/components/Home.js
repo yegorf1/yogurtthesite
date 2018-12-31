@@ -11,7 +11,7 @@ class Home extends React.Component {
     
     render() {
         return <div id="posts" className="content" style={{width: "100%"}}>
-            {this.props.posts.map(post => <Post key={post.constantUrl} post={post}/>)}
+            {!this.props.isLoading &&  this.props.posts.map(post => <Post key={post.constantUrl} post={post}/>)}
         </div>;
     }
 }
