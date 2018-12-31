@@ -18,18 +18,18 @@ class Header extends React.Component {
         ];
 
         if (this.props.loggedIn) {
+            if (this.props.user.isAdmin) {
+                links.push({
+                    link: '/new',
+                    text: 'Новый пост'
+                });
+            }
+            
             links.push({
                 link: '/',
                 text: 'Выход',
                 onClick: this.props.logout
             });
-
-            if (this.props.user.isAdmin) {
-                links.push({
-                    link: '/new',
-                    text: 'Пост'
-                });
-            }
         }
 
         return links;
@@ -37,13 +37,11 @@ class Header extends React.Component {
 
     render() {
         return <div id="header">
-            <div className="logo">
+            <div className="links centered-content" style={{display: "table"}}>
                 <h1>
-                    Yogurt The Horse
                     {
                         this.getLinks().map(link => (
-                            <div key={link.text}>
-                                {'/'}
+                            <div key={link.text} className="link-group">
                                 <Link to={link.link} onClick={link.onClick}>
                                     {link.text}
                                 </Link>
@@ -56,7 +54,6 @@ class Header extends React.Component {
                 this.props.loggedIn &&
                 <div className="float-right">Logged in as {this.props.user.username}</div>
             }
-            <div className="separator"/>
         </div>;
     }
 }

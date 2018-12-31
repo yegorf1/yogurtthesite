@@ -1,33 +1,36 @@
 #header {
-  width: 100%;
-
-  margin-bottom: 8px;
+    width: 100%;
+    margin-bottom: 8px;
+    font-family: 'PT Sans', sans-serif;
 }
 
 #header .logo {
-  display: table;
-  margin: 0 auto;
+    display: table;
+    margin: 0 auto;
 
 }
 
 .logo div {
-  display: inline-block;
+    display: inline-block;
 }
 
-h1 {
-  display: inline;
+.link-group {
+    display: inline;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 h1 a:visited {
-  color: black;
+    color: black;
 }
 
 h1 a {
-  color: black;
+    color: black;
 }
 
 .separator {
-  width: 100%;
-  background-color: black;
-  height: 4px;
+    width: 950px;
+    margin: 0 auto;
+    background-color: gray;
+    height: 1px;
 }

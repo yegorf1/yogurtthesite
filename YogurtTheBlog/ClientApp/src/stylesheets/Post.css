@@ -1,8 +1,22 @@
 .post {
     margin-bottom: 8px;
-    
 }
 
-.post-title >a {
+.post-body {
+    font-family: 'PT Serif', serif;
+}
+
+.post-title::before {
+    content: "> ";
+}
+
+.post-title {
+    font-family: 'PT Sans', sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+}
+
+.post-title a {
     color: black;
+    border-bottom-color: lightgray;
 }

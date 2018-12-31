@@ -1,11 +1,15 @@
 form[name="post-form"] input[type="text"] {
     border: none;
-    font-family: 'Oswald', sans-serif;
-    font-size: 100%;
 }
 
 form[name="post-form"] input[name="title"] {
     font-size: xx-large;
+}
+
+form[name="post-form"] input {
+    background-color: transparent;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 100%;
 }
 
 form textarea {
@@ -13,14 +17,10 @@ form textarea {
     background-color: transparent;
     border: none;
     color: black;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'PT Serif', serif;
     font-size: 100%;
     
     resize: none;
     
     margin-bottom: 18px;
-}
-
-button {
-    font-size: 100%;
 }

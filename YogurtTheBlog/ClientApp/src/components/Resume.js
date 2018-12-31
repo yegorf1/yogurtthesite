@@ -4,7 +4,7 @@ import * as React from "react";
 export default class Resume extends React.Component {
     render() {
         return (
-            <div className="resume centered-content standard-width box">
+            <div className="resume centered-content standard-width">
                 <h2>Привет, я программист на C# и Python и я ищу работу.</h2>
                 <p>Возможно, вам нравится <a href="https://t.me/rog_bot">бот</a>, которого я сделал, и в вашей компании
                     нужен программист. Возможно, вашему знакомому в компании нужен программист. Возможно, ни вам, ни

@@ -38,7 +38,7 @@ class NewPostPage extends React.Component {
                 [name]: value
             }
         });
-        
+
         if (name === 'body') {
             NewPostPage.textAreaAdjust(event);
         }
@@ -51,24 +51,29 @@ class NewPostPage extends React.Component {
     render() {
         const {post} = this.state;
 
-        return <div className="centered-content box standard-width">
+        return <div className="centered-content standard-width">
             <form name="post-form" onSubmit={this.handleSubmit}>
                 <div>
-                    <h1>
-                        <input type="text" name="title" value={post.title}
-                               onChange={this.handleChange} placeholder="Название"/>
-                    </h1>
-                </div>
-                <div>
+                    <div>
+                        <h1>
+                            <input type="text" name="title" value={post.title}
+                                   onChange={this.handleChange} placeholder="Название"/>
+                        </h1>
+                    </div>
+                    <div>
                     <span>
                         {window.location.origin + '/p/'}
                         <input type="text" name="constantUrl" value={post.constantUrl}
                                onChange={this.handleChange} placeholder="link"/>
                     </span>
+                    </div>
+                    <textarea name="body" value={post.body} onChange={this.handleChange}/>
                 </div>
-                <textarea name="body" value={post.body} onChange={this.handleChange}/>
-                
-                <button>Запостить!</button>
+
+                <div className="submit-controls">
+                    <button className="primary">Запостить!</button>
+                </div>
+
             </form>
         </div>;
     }

@@ -44,7 +44,7 @@ class RegisterPage extends React.Component {
     render() {
         const {user, submitted} = this.state;
         return (
-            <div className="centered-content small-form box">
+            <div className="centered-content small-form">
                 <h2>Регистрация</h2>
                 <p>Ты уверен, что ты на той страничке?</p>
                 <form name="form" onSubmit={this.handleSubmit}>
@@ -67,7 +67,7 @@ class RegisterPage extends React.Component {
                         }
                     </div>
                     <div className="form-group">
-                        <button>Регистрация</button>
+                        <button className="primary">Регистрация</button>
                         <Link to="/login" className="float-right">Вход</Link>
                     </div>
                 </form>

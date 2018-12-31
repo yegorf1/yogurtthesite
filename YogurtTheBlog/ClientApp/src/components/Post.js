@@ -23,7 +23,7 @@ class Post extends React.Component {
         }
         
         return (
-            <div className="post centered-content standard-width box" id={"post-" + finalPost.constantUrl}>
+            <div className="post centered-content standard-width" id={"post-" + finalPost.constantUrl}>
                 <h1 className="post-title">
                     <Link to={"/p/" + finalPost.constantUrl}>
                         {finalPost.title}

@@ -38,7 +38,7 @@ class LoginPage extends React.Component {
     render() {
         const {username, password, submitted} = this.state;
         return (
-            <div className="centered-content box small-form">
+            <div className="centered-content small-form">
                 <h2>Вход</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
@@ -60,7 +60,7 @@ class LoginPage extends React.Component {
                         }
                     </div>
                     <div className="form-group">
-                        <button>Вход</button>
+                        <button className="primary">Вход</button>
                         <Link to="/register" className="float-right">Регистрация</Link>
                     </div>
                 </form>
