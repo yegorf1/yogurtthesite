@@ -51,6 +51,7 @@ namespace YogurtTheBlog.Controllers {
 
             return Ok(new {
                 user.Username,
+                user.IsAdmin,
                 Token = tokenString
             });
         }
