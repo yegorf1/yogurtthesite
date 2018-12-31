@@ -30,14 +30,12 @@ class LoginPage extends React.Component {
 
         this.setState({submitted: true});
         const {username, password} = this.state;
-        const {dispatch} = this.props;
         if (username && password) {
             this.props.login(username, password);
         }
     }
 
     render() {
-        const {loggingIn} = this.props;
         const {username, password, submitted} = this.state;
         return (
             <div className="centered-content box small-form">
