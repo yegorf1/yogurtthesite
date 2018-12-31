@@ -104,6 +104,9 @@ export const reducer = (state, action) => {
     }
 
     if (action.type === LOGIN_FAILURE || action.type === LOGOUT) {
+        if (action.type === LOGIN_FAILURE) {
+            alert(action.error);
+        }
         return {
             isLogging: false,
             loggedIn: false,
@@ -112,6 +115,9 @@ export const reducer = (state, action) => {
     }
     
     // add registration handlers
+    if (action.type === REGISTER_FAILURE) {
+        alert(action.error);
+    }
     
     return state;
 };

@@ -83,7 +83,7 @@ export const reducer = (state, action) => {
     }
 
     if (action.type === errorPostsType || action.type === errorReceivingPostType) {
-        // TODO: Handle error
+        alert(action.error);
         return {
             ...state,
             isLoading: false
