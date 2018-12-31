@@ -42,7 +42,7 @@ class Header extends React.Component {
                     Yogurt The Horse
                     {
                         this.getLinks().map(link => (
-                            <div>
+                            <div key={link.text}>
                                 {'/'}
                                 <Link to={link.link} onClick={link.onClick}>
                                     {link.text}
