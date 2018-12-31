@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Driver;
@@ -45,6 +46,11 @@ namespace YogurtTheBlog.Repositories {
 
         private static FilterDefinition<Post> CreateFilterByUrl(string postUrl) {
             return new FilterDefinitionBuilder<Post>().Eq("_id", postUrl);
+        }
+
+        public async Task AddPost(Post post) {
+            // TODO: add some exception handling
+            await _postsCollection.InsertOneAsync(post);
         }
     }
 }
