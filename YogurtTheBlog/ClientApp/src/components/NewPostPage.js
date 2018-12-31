@@ -63,7 +63,7 @@ class NewPostPage extends React.Component {
                     <span>
                         {window.location.origin + '/p/'}
                         <input type="text" name="constantUrl" value={post.constantUrl}
-                               onChange={this.handleChange} placeholder="Ссылка"/>
+                               onChange={this.handleChange} placeholder="link"/>
                     </span>
                 </div>
                 <textarea name="body" value={post.body} onChange={this.handleChange}/>
