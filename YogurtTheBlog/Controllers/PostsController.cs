@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using YogurtTheBlog.Models;
@@ -31,6 +32,15 @@ namespace YogurtTheBlog.Controllers {
         [HttpGet("{postUrl}")]
         public async Task<ActionResult<Post>> GetPostAsync(string postUrl) {
             return await _posts.GetPost(postUrl);
+        }
+        
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreatePost([FromBody] Post post) {
+            post.PublishDate = DateTime.Now;
+            post.Author = User.Identity.Name;
+            await _posts.AddPost(post);
+            return Ok();
         }
     }
 }
