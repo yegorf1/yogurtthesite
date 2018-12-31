@@ -42,7 +42,7 @@ namespace YogurtTheBlog.Controllers {
             post.Author = User.Identity.Name;
             try {
                 await _posts.AddPost(post);
-                return Ok();
+                return Ok(post);
             }
             catch (DuplicateNameException ex) {
                 return BadRequest(new {
