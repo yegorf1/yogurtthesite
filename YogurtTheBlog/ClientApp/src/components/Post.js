@@ -46,6 +46,13 @@ class Post extends React.Component {
                 <ReactMarkdown className="post-body">
                     {finalPost.body}
                 </ReactMarkdown>
+                
+                <div className="likely likely-small" data-url={window.location.origin + "/p/" + finalPost.constantUrl}>
+                    <div className="twitter">Твитнуть</div>
+                    <div className="facebook">Поделиться</div>
+                    <div className="vkontakte">Поделиться</div>
+                    <div className="telegram">Отправить</div>
+                </div>
             </div>
         );
     }
