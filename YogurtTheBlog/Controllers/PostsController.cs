@@ -50,5 +50,20 @@ namespace YogurtTheBlog.Controllers {
                 });
             }
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{postUrl}")]
+        public async Task<IActionResult> DeletePost(string postUrl) {
+            try {
+                await _posts.DeletePost(postUrl);
+
+                return Ok();
+            }
+            catch (KeyNotFoundException ex) {
+                return BadRequest(new {
+                    message = ex.Message
+                });
+            }
+        }
     }
 }
