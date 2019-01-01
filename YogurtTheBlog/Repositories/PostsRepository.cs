@@ -67,5 +67,15 @@ namespace YogurtTheBlog.Repositories {
                 throw new KeyNotFoundException();
             }
         }
+
+        public async Task UpdatePost(Post post) {
+            await _postsCollection.ReplaceOneAsync(
+                CreateFilterByUrl(post.ConstantUrl),
+                post,
+                new UpdateOptions {
+                    IsUpsert = true
+                }
+            );
+        }
     }
 }
