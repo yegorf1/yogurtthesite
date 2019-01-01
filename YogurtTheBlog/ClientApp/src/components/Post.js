@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {actionCreators} from "../store/Posts";
+import Likely, {Facebook, Gplus, Linkedin, Odnoklassniki, Pinterest, Telegram, Twitter, Vkontakte} from "./Likely";
 
 class Post extends React.Component {
     componentDidMount() {
@@ -12,13 +13,14 @@ class Post extends React.Component {
         if (postUrl) {
             this.props.requestSinglePost(postUrl);
         }
+
     }
 
     render() {
         const {post, loadedPost, isAdmin, deletePost} = this.props;
         const finalPost = post || loadedPost;
         if (!finalPost) {
-            return <div className="post"><h1>Загрузка...</h1></div>;
+            return <div className="post centered-content standard-width"><h1>Загрузка...</h1></div>;
         }
 
         return (
@@ -38,7 +40,7 @@ class Post extends React.Component {
                                 edit
                             </Link>
                             <Link className="delete-control" to="/" onClick={() => deletePost(finalPost.constantUrl)}>
-                                delete 
+                                delete
                             </Link>
                         </div>
                     }
@@ -46,13 +48,13 @@ class Post extends React.Component {
                 <ReactMarkdown className="post-body">
                     {finalPost.body}
                 </ReactMarkdown>
-                
-                <div className="likely likely-small" data-url={window.location.origin + "/p/" + finalPost.constantUrl}>
-                    <div className="twitter">Твитнуть</div>
-                    <div className="facebook">Поделиться</div>
-                    <div className="vkontakte">Поделиться</div>
-                    <div className="telegram">Отправить</div>
-                </div>
+
+                <Likely dataUrl={window.location.origin + '/p/' + finalPost.constantUrl}>
+                    <Facebook>Поделиться</Facebook>
+                    <Twitter>Твитнуть</Twitter>
+                    <Vkontakte>Поделиться</Vkontakte>
+                    <Telegram>Отправить</Telegram>
+                </Likely>
             </div>
         );
     }
