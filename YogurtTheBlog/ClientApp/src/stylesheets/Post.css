@@ -6,17 +6,47 @@
     font-family: 'PT Serif', serif;
 }
 
-.post-title::before {
+.post-header h1::before {
     content: "> ";
 }
 
-.post-title {
+.post-header h1 {
     font-family: 'PT Sans', sans-serif;
     font-weight: 700;
     font-size: 48px;
 }
 
-.post-title a {
+.post-header > *{
+    display: inline-block;
+}
+
+.post-controls {
+    color: gray;
+    
+    margin-left: 16px;
+    vertical-align: central;
+}
+
+.post-controls > * {
+    margin: 4px;
+    
+    background-color: lightgray;
+    border-radius: 3px;
+    border-color: lightgray;
+    padding: 1px 4px;
+}
+
+.post-controls  :hover {
+    background-color: gray;
+    border-color: gray;
+}
+
+.post-controls .delete-control:hover {
+    background-color: #ff3445;
+    border-color: #ff3445;
+}
+
+.post-header a {
     color: black;
     border-bottom-color: lightgray;
 }

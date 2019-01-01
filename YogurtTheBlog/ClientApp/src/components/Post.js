@@ -15,20 +15,35 @@ class Post extends React.Component {
     }
 
     render() {
-        const {post, loadedPost, posts} = this.props;
+        const {post, loadedPost, posts, isAdmin, deletePost} = this.props;
         const postUrl = this.props.match ? this.props.match.params.postUrl : null;
         const finalPost = post || posts.find(p => p.constantUrl === postUrl) || loadedPost;
         if (!finalPost) {
             return <div className="post"><h1>Загрузка...</h1></div>;
         }
-        
+
         return (
             <div className="post centered-content standard-width" id={"post-" + finalPost.constantUrl}>
-                <h1 className="post-title">
-                    <Link to={"/p/" + finalPost.constantUrl}>
-                        {finalPost.title}
-                    </Link>
-                </h1>
+                <div className="post-header">
+                    <div className="post-title">
+                        <h1>
+                            <Link to={"/p/" + finalPost.constantUrl}>
+                                {finalPost.title}
+                            </Link>
+                        </h1>
+                    </div>
+                    {
+                        isAdmin &&
+                        <div className="post-controls">
+                            <Link to={"/e/" + finalPost.constantUrl}>
+                                edit
+                            </Link>
+                            <Link className="delete-control" to="/" onClick={() => deletePost(finalPost.constantUrl)}>
+                                delete 
+                            </Link>
+                        </div>
+                    }
+                </div>
                 <ReactMarkdown className="post-body">
                     {finalPost.body}
                 </ReactMarkdown>
@@ -42,6 +57,7 @@ export default connect(
         return {
             loadedPost: state.posts.currentPost,
             posts: state.posts.posts,
+            isAdmin: state.auth.loggedIn && state.auth.user.isAdmin
         }
     },
     dispatch => bindActionCreators(actionCreators, dispatch)

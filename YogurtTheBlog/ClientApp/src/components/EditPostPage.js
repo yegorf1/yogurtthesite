@@ -1,14 +1,15 @@
-import '../stylesheets/NewPostPage.css';
+import '../stylesheets/EditPostPage.css';
 import * as React from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {actionCreators} from "../store/Posts";
 
-class NewPostPage extends React.Component {
+class EditPostPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            editing: false,
             post: {
                 title: '',
                 body: '',
@@ -20,12 +21,28 @@ class NewPostPage extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount() {
+        const postUrl = this.props.match ? this.props.match.params.postUrl : null;
+        if (postUrl) {
+            this.setState({
+                editing: true
+            });
+            this.props.requestSinglePost(postUrl).then(post => {
+                this.setState({post});
+            });
+        }
+    }
+
     handleSubmit(e) {
         e.preventDefault();
 
-        const {post} = this.state;
+        const {post, editing} = this.state;
         if (post.title && post.constantUrl && post.body) {
-            this.props.createPost(post);
+            if (editing) {
+                this.props.editPost(post);
+            } else {
+                this.props.createPost(post);
+            }
         }
     }
 
@@ -40,7 +57,7 @@ class NewPostPage extends React.Component {
         });
 
         if (name === 'body') {
-            NewPostPage.textAreaAdjust(event);
+            EditPostPage.textAreaAdjust(event);
         }
     }
 
@@ -49,8 +66,13 @@ class NewPostPage extends React.Component {
     }
 
     render() {
-        const {post} = this.state;
+        const {isLoading} = this.props;
+        const {post, editing} = this.state;
 
+        if (editing && isLoading) {
+            return <span>1 second..</span>;
+        }
+        
         return <div className="centered-content standard-width">
             <form name="post-form" onSubmit={this.handleSubmit}>
                 <div>
@@ -71,9 +93,8 @@ class NewPostPage extends React.Component {
                 </div>
 
                 <div className="submit-controls">
-                    <button className="primary">Запостить!</button>
+                    <button className="primary">{editing ? "Закончить" : "Запостить!"}</button>
                 </div>
-
             </form>
         </div>;
     }
@@ -82,4 +103,4 @@ class NewPostPage extends React.Component {
 export default connect(
     state => state.posts,
     dispatch => bindActionCreators(actionCreators, dispatch)
-)(NewPostPage);
+)(EditPostPage);

@@ -7,15 +7,16 @@ import Post from "./components/Post";
 import Resume from "./components/Resume";
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
-import NewPostPage from "./components/NewPostPage";
+import EditPostPage from "./components/EditPostPage";
 
 export default () => (
     <Layout>
         <Route exact path='/' component={Home}/>
         <Route path='/p/:postUrl' component={Post}/>
+        <Route path='/e/:postUrl' component={EditPostPage}/>
         <Route exact path='/resume' component={Resume}/>
         <Route exact path='/login' component={LoginPage}/>
         <Route exact path='/register' component={RegisterPage}/>
-        <Route exact path='/new' component={NewPostPage}/>
+        <Route exact path='/new' component={EditPostPage}/>
     </Layout>
 );
