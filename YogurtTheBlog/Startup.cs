@@ -103,11 +103,7 @@ namespace YogurtTheBlog {
 
             app.UseAuthentication();
             
-            app.UseMvc(routes => {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
 
             app.UseSpa(spa => {
                 spa.Options.SourcePath = "ClientApp";
