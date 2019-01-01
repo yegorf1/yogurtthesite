@@ -9,15 +9,14 @@ import {actionCreators} from "../store/Posts";
 class Post extends React.Component {
     componentDidMount() {
         const postUrl = this.props.match ? this.props.match.params.postUrl : null;
-        if (postUrl && !this.props.posts.find(p => p.constantUrl === postUrl)) {
+        if (postUrl) {
             this.props.requestSinglePost(postUrl);
         }
     }
 
     render() {
-        const {post, loadedPost, posts, isAdmin, deletePost} = this.props;
-        const postUrl = this.props.match ? this.props.match.params.postUrl : null;
-        const finalPost = post || posts.find(p => p.constantUrl === postUrl) || loadedPost;
+        const {post, loadedPost, isAdmin, deletePost} = this.props;
+        const finalPost = post || loadedPost;
         if (!finalPost) {
             return <div className="post"><h1>Загрузка...</h1></div>;
         }
