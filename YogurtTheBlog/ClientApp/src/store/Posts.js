@@ -13,6 +13,10 @@ const createNewPostType = 'CREATE_POST';
 const postCreatedType   = 'POST_CREATED';
 const postCreateFail    = 'FAIL_CREATE_POST';
 
+const deletePostType = 'DELETE_POST';
+const postDeleted    = 'POST_DELETED';
+const postDeleteFail = 'ERROR_DELETE_POST';
+
 const initialState = {
     posts: [],
     page: 1,
@@ -89,6 +93,31 @@ export const actionCreators = {
                     alert(error);
                 }
             )
+    },
+    deletePost: postUrl => (dispatch, getState) => {
+        if (getState().isLoading) {
+            return;
+        }
+
+        dispatch({type: deletePostType});
+
+        Posts
+            .deletePost(postUrl)
+            .then(resp => {
+                dispatch({
+                    type: postCreatedType
+                });
+                history.push('/');
+            })
+            .catch(
+                error => {
+                    dispatch({
+                        type: postCreateFail,
+                        error: error
+                    });
+                    alert(error);
+                }
+            )
     }
 };
 
@@ -136,21 +165,14 @@ export const reducer = (state, action) => {
         }
     }
     
-    if (action.type === createNewPostType) {
+    if ([createNewPostType, deletePostType].includes(action.type)) {
         return {
             ...state,
             isLoading: true
         };
     }
     
-    if (action.type === postCreateFail) {
-        return {
-            ...state,
-            isLoading: false
-        };
-    }
-    
-    if (action.type === postCreatedType) {
+    if ([postCreateFail, postCreatedType, postDeleted, postDeleteFail].includes(action.type)) {
         return {
             ...state,
             isLoading: false
