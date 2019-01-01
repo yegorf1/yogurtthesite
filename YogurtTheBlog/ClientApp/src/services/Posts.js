@@ -21,3 +21,10 @@ export const newPost = post => {
     
     return fetch(apiEndpoint, requestOptions).then(async response => await response.json());
 };
+
+export const deletePost = postUrl => {
+    return fetch(`${apiEndpoint}${postUrl}`, {
+        method: 'DELETE',
+        headers: authHeader()
+    });
+};
