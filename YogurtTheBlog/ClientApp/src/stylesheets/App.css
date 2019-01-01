@@ -18,6 +18,7 @@ html, body, #root {
 
 .small-form {
     max-width: 400px;
+    width: 100%;
 }
 
 a {
