@@ -28,3 +28,13 @@ export const deletePost = postUrl => {
         headers: authHeader()
     });
 };
+
+export const editPost = post => {
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', ...authHeader() },
+        body: JSON.stringify(post)
+    };
+
+    return fetch(apiEndpoint, requestOptions).then(async response => await response.json());
+};

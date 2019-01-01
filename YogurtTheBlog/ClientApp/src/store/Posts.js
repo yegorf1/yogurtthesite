@@ -7,11 +7,15 @@ const errorPostsType = 'ERROR_POSTS';
 
 const requestSinglePostType = 'REQUEST_SINGLE_POST';
 const receiveSinglePostType = 'RECEIVE_SINGLE_POST';
-const errorReceivingPostType = 'ERROR_SINGLE_POST'; 
+const errorReceivingPostType = 'ERROR_SINGLE_POST';
 
 const createNewPostType = 'CREATE_POST';
 const postCreatedType   = 'POST_CREATED';
 const postCreateFail    = 'FAIL_CREATE_POST';
+
+const editPostType = 'EDIT_POST';
+const postEditedType   = 'POST_EDITED';
+const postEditFail    = 'FAIL_EDIT_POST';
 
 const deletePostType = 'DELETE_POST';
 const postDeleted    = 'POST_DELETED';
@@ -57,11 +61,13 @@ export const actionCreators = {
         }
         
         dispatch({type: requestSinglePostType, postUrl});
-        Posts.getPost(postUrl)
+        return Posts.getPost(postUrl)
             .then(post => {
                 dispatch({
                     type: receiveSinglePostType, post
                 });
+                
+                return post;
             })
             .catch(error => {
                 dispatch({
@@ -88,6 +94,33 @@ export const actionCreators = {
                 error => {
                     dispatch({
                         type: postCreateFail,
+                        error: error
+                    });
+                    alert(error);
+                }
+            )
+    },
+    editPost: post => (dispatch, getState) => {
+        if (getState().isLoading) {
+            return;
+        }
+        
+        dispatch({type: editPostType});
+        
+        Posts
+            .editPost(post)
+            .then(post => {
+                dispatch({
+                    type: postEditedType
+                });
+                history.push('/p/' + post.constantUrl);
+                
+                return post;
+            })
+            .catch(
+                error => {
+                    dispatch({
+                        type: postEditFail,
                         error: error
                     });
                     alert(error);
@@ -165,14 +198,14 @@ export const reducer = (state, action) => {
         }
     }
     
-    if ([createNewPostType, deletePostType].includes(action.type)) {
+    if ([createNewPostType, deletePostType, editPostType].includes(action.type)) {
         return {
             ...state,
             isLoading: true
         };
     }
     
-    if ([postCreateFail, postCreatedType, postDeleted, postDeleteFail].includes(action.type)) {
+    if ([postCreateFail, postCreatedType, postDeleted, postDeleteFail, postEditFail, postEditedType].includes(action.type)) {
         return {
             ...state,
             isLoading: false
