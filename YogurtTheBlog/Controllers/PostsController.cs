@@ -65,5 +65,13 @@ namespace YogurtTheBlog.Controllers {
                 });
             }
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut]
+        public async Task<IActionResult> UpdatePost([FromBody] Post post) {
+            await _posts.UpdatePost(post);
+                
+            return Ok(post);
+        }
     }
 }
