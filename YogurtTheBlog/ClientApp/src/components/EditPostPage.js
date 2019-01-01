@@ -55,14 +55,6 @@ class EditPostPage extends React.Component {
                 [name]: value
             }
         });
-
-        if (name === 'body') {
-            EditPostPage.textAreaAdjust(event);
-        }
-    }
-
-    static textAreaAdjust(event) {
-        event.target.style.height = (event.target.scrollHeight) + "px";
     }
 
     render() {
@@ -72,31 +64,31 @@ class EditPostPage extends React.Component {
         if (editing && isLoading) {
             return <span>1 second..</span>;
         }
-        
-        return <div className="centered-content standard-width">
+
+        return (
             <form name="post-form" onSubmit={this.handleSubmit}>
-                <div>
-                    <div>
+                <div className="centered-content standard-width flex-fill">
+                    <div className="post-content">
                         <h1>
                             <input type="text" name="title" value={post.title}
                                    onChange={this.handleChange} placeholder="Название"/>
                         </h1>
+                        <div>
+                            <span>
+                                {window.location.origin + '/p/'}
+                                <input type="text" name="constantUrl" value={post.constantUrl}
+                                       onChange={this.handleChange} placeholder="link"/>
+                            </span>
+                        </div>
+                        <textarea name="body" value={post.body} onChange={this.handleChange}/>
                     </div>
-                    <div>
-                    <span>
-                        {window.location.origin + '/p/'}
-                        <input type="text" name="constantUrl" value={post.constantUrl}
-                               onChange={this.handleChange} placeholder="link"/>
-                    </span>
-                    </div>
-                    <textarea name="body" value={post.body} onChange={this.handleChange}/>
-                </div>
 
-                <div className="submit-controls">
-                    <button className="primary">{editing ? "Закончить" : "Запостить!"}</button>
+                    <div className="submit-controls">
+                        <button className="primary">{editing ? "Закончить" : "Запостить!"}</button>
+                    </div>
                 </div>
             </form>
-        </div>;
+        );
     }
 }
 

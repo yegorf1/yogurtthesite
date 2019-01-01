@@ -12,8 +12,9 @@ form[name="post-form"] input {
     font-size: 100%;
 }
 
-form textarea {
+form[name="post-form"] textarea {
     width: 100%;
+    height: 100%;
     background-color: transparent;
     border: none;
     color: black;
@@ -24,3 +25,24 @@ form textarea {
     
     margin-bottom: 18px;
 }
+
+.post-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+form[name="post-form"], form[name="post-form"]>div {
+    height: 100%;
+    padding: 0;
+}
+
+form[name="post-form"] .post-content {
+    flex: auto;
+}
+
+form[name="post-form"] .submit-controls {
+    padding-bottom: 8px;
+}
+
+
