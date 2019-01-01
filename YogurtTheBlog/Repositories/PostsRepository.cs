@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -53,8 +54,17 @@ namespace YogurtTheBlog.Repositories {
             try {
                 await _postsCollection.InsertOneAsync(post);
             }
-            catch (MongoWriteException ex) {
+            catch (MongoWriteException) {
                 throw new DuplicateNameException($"Post with name {post.ConstantUrl} already exists");
+            }
+        }
+
+        public async Task DeletePost(string postUrl) {
+            try {
+                await _postsCollection.DeleteOneAsync(CreateFilterByUrl(postUrl));
+            }
+            catch (MongoCursorNotFoundException) {
+                throw new KeyNotFoundException();
             }
         }
     }
