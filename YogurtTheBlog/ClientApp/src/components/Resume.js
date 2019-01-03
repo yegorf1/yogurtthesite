@@ -16,7 +16,7 @@ export default class Resume extends React.Component {
                 <br/>
                 <p>На исходный код моих разработок и этого сайта (ASP.NET MVC + React + Redux) можно посмотреть на
                     гитхабе:{' '}
-                    <a href="https://gihub.com/yegorf1">github.com/yegorf1</a>
+                    <a href="https://github.com/yegorf1">github.com/yegorf1</a>
                 </p>
                 <p>Если вы можете мне что-то предложить, напишите мне прямо в телеграме:{' '}
                     <a href="https://t.me/YogurtTheJob">t.me/YogurtTheJob</a></p>
