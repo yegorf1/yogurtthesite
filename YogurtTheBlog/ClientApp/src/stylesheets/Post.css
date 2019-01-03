@@ -47,6 +47,14 @@
     border-color: #ff3445;
 }
 
+.tag::before {
+    content: "#";
+}
+
+.tag {
+    margin-right: 6px;
+}
+
 .post-header a {
     color: black;
     border-bottom-color: lightgray;

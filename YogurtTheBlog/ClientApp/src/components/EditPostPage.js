@@ -13,6 +13,7 @@ class EditPostPage extends React.Component {
             post: {
                 title: '',
                 body: '',
+                tags: '',
                 constantUrl: ''
             }
         };
@@ -28,6 +29,7 @@ class EditPostPage extends React.Component {
                 editing: true
             });
             this.props.requestSinglePost(postUrl).then(post => {
+                post.tags = post.tags.join(', ');
                 this.setState({post});
             });
         }
@@ -37,7 +39,12 @@ class EditPostPage extends React.Component {
         e.preventDefault();
 
         const {post, editing} = this.state;
+
         if (post.title && post.constantUrl && post.body) {
+            const tagsString = post.tags;
+            post.tags = [];
+
+            tagsString.split(',').forEach(tag => post.tags.push(tag.trim()));
             if (editing) {
                 this.props.editPost(post);
             } else {
@@ -78,6 +85,13 @@ class EditPostPage extends React.Component {
                                 {window.location.origin + '/p/'}
                                 <input type="text" name="constantUrl" value={post.constantUrl}
                                        onChange={this.handleChange} placeholder="link"/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                Теги (через запятую):
+                                <input type="text" name="tags" value={post.tags}
+                                       onChange={this.handleChange} placeholder="теги"/>
                             </span>
                         </div>
                         <textarea name="body" value={post.body} onChange={this.handleChange}/>
