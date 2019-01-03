@@ -14,6 +14,7 @@ export default () => (
         <Route exact path='/' component={Home}/>
         <Route path='/p/:postUrl' component={Post}/>
         <Route path='/e/:postUrl' component={EditPostPage}/>
+        <Route path='/t/:tag' component={Home}/>
         <Route exact path='/resume' component={Resume}/>
         <Route exact path='/login' component={LoginPage}/>
         <Route exact path='/register' component={RegisterPage}/>

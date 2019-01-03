@@ -6,7 +6,7 @@ import Post from "./Post";
 
 class Home extends React.Component {
     componentDidMount() {
-        this.props.requestPosts(this.props.page);
+        this.props.requestPosts(this.props.page, this.props.match.params.tag || null);
     }
     
     render() {

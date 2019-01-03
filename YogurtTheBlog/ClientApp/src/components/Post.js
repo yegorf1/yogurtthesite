@@ -54,7 +54,7 @@ class Post extends React.Component {
                     <div className="post-tags">
                         {
                             finalPost.tags.map(tag =>
-                                <Link className="tag" to={'/?tags=' + encodeURIComponent(tag)}>
+                                <Link className="tag" to={'/t/' + encodeURIComponent(tag)}>
                                     {tag} 
                                 </Link>
                             )
