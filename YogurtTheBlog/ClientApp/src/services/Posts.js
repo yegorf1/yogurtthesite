@@ -7,8 +7,14 @@ export const getPost = (postUrl) => {
         .then(async response => await response.json());
 };
 
-export const getPagedPosts = (page, pageSize) => {
-    return fetch(`${apiEndpoint}?page=${page}&pageSize=${pageSize || 15}`)
+export const getPagedPosts = (page, pageSize, tag) => {
+    let url = `${apiEndpoint}?page=${page}&pageSize=${pageSize || 15}`;
+    
+    if (tag) {
+        url += `&tag=${tag}`;
+    }
+    
+    return fetch(url)
         .then(async response => await response.json())
 };
 

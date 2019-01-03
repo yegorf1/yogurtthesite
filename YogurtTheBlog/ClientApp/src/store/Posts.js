@@ -31,7 +31,7 @@ const initialState = {
 };
 
 export const actionCreators = {
-    requestPosts: page => (dispatch, getState) => {
+    requestPosts: (page, tag) => (dispatch, getState) => {
         if (getState().isLoading) {
             return;
         }
@@ -39,7 +39,7 @@ export const actionCreators = {
         dispatch({type: requestPostsType, page});
 
         Posts
-            .getPagedPosts(page, getState().pageSize)
+            .getPagedPosts(page, getState().pageSize, tag)
             .then(response => {
                 const {pageNumber, pageSize, pagesCount, elements} = response;
                 dispatch({
