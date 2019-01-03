@@ -49,6 +49,19 @@ class Post extends React.Component {
                     {finalPost.body}
                 </ReactMarkdown>
 
+                {
+                    finalPost.tags && finalPost.tags.length > 0 &&
+                    <div className="post-tags">
+                        {
+                            finalPost.tags.map(tag =>
+                                <Link className="tag" to={'/?tags=' + encodeURIComponent(tag)}>
+                                    {tag} 
+                                </Link>
+                            )
+                        }
+                    </div>
+                }
+
                 <Likely dataUrl={window.location.origin + '/p/' + finalPost.constantUrl}>
                     <Facebook>Поделиться</Facebook>
                     <Twitter>Твитнуть</Twitter>
