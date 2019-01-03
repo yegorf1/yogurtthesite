@@ -22,7 +22,7 @@ namespace YogurtTheBlog.Repositories {
             // Add index
         }
 
-        public async Task<Page<Post>> GetPosts(int page, int pageSize) {
+        public async Task<Page<Post>> GetPosts(int page, int pageSize, string tag=null) {
             if (page < 1) {
                 throw new ArgumentOutOfRangeException(nameof(page), "Page must be greater than 0");
             }
@@ -32,8 +32,9 @@ namespace YogurtTheBlog.Repositories {
             }
 
             IFindFluent<Post, Post> posts = _postsCollection
-                .Find(FilterDefinition<Post>.Empty)
+                .Find(tag is null ? FilterDefinition<Post>.Empty : Builders<Post>.Filter.AnyEq(p => p.Tags, tag))
                 .Sort(new SortDefinitionBuilder<Post>().Descending(p => p.PublishDate));
+
             return new Page<Post> {
                 PagesCount = await posts.CountDocumentsAsync(),
                 PageNumber = page,

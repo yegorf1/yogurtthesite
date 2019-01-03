@@ -20,9 +20,9 @@ namespace YogurtTheBlog.Controllers {
         }
        
         [HttpGet]
-        public async Task<ActionResult<Page<Post>>> PagedPostsAsync([FromQuery]int? page, [FromQuery]int? pageSize) {
+        public async Task<ActionResult<Page<Post>>> PagedPostsAsync([FromQuery]int? page, [FromQuery]int? pageSize, [FromQuery]string tag) {
             try {
-                return await _posts.GetPosts(page ?? 1, pageSize ?? 15);
+                return await _posts.GetPosts(page ?? 1, pageSize ?? 15, tag);
             }
             catch (ArgumentOutOfRangeException ex) {
                 // add bad request
