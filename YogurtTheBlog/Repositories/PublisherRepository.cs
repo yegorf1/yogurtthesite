@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using YogurtTheBlog.Models;
@@ -17,10 +19,16 @@ namespace YogurtTheBlog.Repositories {
         private readonly IMongoCollection<Publisher> _publishers;
 
         public MongoPublishersRepository(IMongoDatabase database) {
+            var pack = new ConventionPack
+            {
+                new EnumRepresentationConvention(BsonType.String)
+            };
+
+            ConventionRegistry.Register("EnumStringConvention", pack, t => true);
+            
             BsonClassMap.RegisterClassMap<Publisher>(cm => {
                 cm.AutoMap();
                 cm.MapIdProperty(p => p.Name).SetSerializer(new StringSerializer());
-                cm.GetMemberMap(p => p.PublisherType).SetSerializer(new StringSerializer());
             });
 
             _publishers = database.GetCollection<Publisher>("publishers");
