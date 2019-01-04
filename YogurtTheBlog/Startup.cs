@@ -30,7 +30,6 @@ namespace YogurtTheBlog {
 
             IConfigurationSection authSettingsSection = Configuration.GetSection("Auth");
             services.Configure<AuthSettings>(authSettingsSection);
-            services.Configure<PublishSettings>("Publish", Configuration);
 
             var databaseSettings = Configuration.GetSection("Database").Get<DatabaseSettings>();
             services.AddSingleton(new MongoClient().GetDatabase(databaseSettings.Name));
