@@ -34,7 +34,7 @@ namespace YogurtTheBlog {
             var databaseSettings = Configuration.GetSection("Database").Get<DatabaseSettings>();
             services.AddSingleton(new MongoClient().GetDatabase(databaseSettings.Name));
             services.AddSingleton<PostsRepository>();
-                
+            services.AddSingleton<IPublishersRepository, MongoPublishersRepository>();
             
             var authSettings = authSettingsSection.Get<AuthSettings>();
             byte[] key = Encoding.ASCII.GetBytes(authSettings.Secret);
