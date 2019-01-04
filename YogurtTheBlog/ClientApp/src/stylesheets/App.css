@@ -64,10 +64,45 @@ input {
     color: black;
     font-size: 100%;
     
+    padding: 4px;
+    
     border-radius: 3px;
     background-color: lightgray;
     
     box-sizing: border-box;
+}
+
+.form-group >{
+    display: inline-block;
+}
+
+.select {
+    font-family: 'PT Sans Narrow', sans-serif;
+
+    border: 1px solid lightgray;
+    background-color: white;
+    color: black;
+    font-size: 100%;
+    
+    width: 50%;
+    
+    border-radius: 3px;
+    background-color: lightgray;
+    
+    overflow: hidden;
+    
+    box-sizing: border-box;verflow: hidden;
+}
+select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+
+    color: black;
 }
 
 .centered-content {
