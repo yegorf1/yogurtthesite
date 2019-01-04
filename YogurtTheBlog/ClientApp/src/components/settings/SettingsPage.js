@@ -1,10 +1,10 @@
-import '../stylesheets/Settings.css';
+import '../../stylesheets/Settings.css';
 
 import * as React from "react";
 import {NavLink} from "react-router-dom";
 import {Route} from "react-router";
-import PublishersPage from "./settings/PublishersPage";
-import MainPage from "./settings/MainPage";
+import PublishersPage from "./PublishersPage";
+import MainPage from "./MainPage";
 
 export default class SettingsPage extends React.Component {
     render() {
@@ -17,9 +17,6 @@ export default class SettingsPage extends React.Component {
                         </NavLink>
                         <NavLink to="/settings/publishers">
                             Издатели
-                        </NavLink>
-                        <NavLink to="/settings/comments">
-                            Комментарии
                         </NavLink>
                     </div>
                 </div>
