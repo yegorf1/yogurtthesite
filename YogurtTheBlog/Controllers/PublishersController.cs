@@ -20,8 +20,8 @@ namespace YogurtTheBlog.Controllers {
             return await _publishers.GetPublishers();
         }
 
-        [HttpPut]
-        public async Task CreatePublisher(Publisher publisher) {
+        [HttpPost]
+        public async Task CreatePublisher([FromBody] Publisher publisher) {
             await _publishers.AddPublisher(publisher);
         }
 
