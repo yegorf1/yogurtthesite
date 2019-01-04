@@ -8,5 +8,6 @@ namespace YogurtTheBlog.Models {
         [JsonConverter(typeof(StringEnumConverter))]
         public PublisherType PublisherType { get; set; }
         public string Token { get; set; }
+        public string TargetId { get; set; }
     }
 }
