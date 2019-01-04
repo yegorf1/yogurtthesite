@@ -1,0 +1,32 @@
+#settings-page {
+    width: 100%;
+}
+
+#settings-page>div {
+    padding: 0;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#settings-page .settings-navigation {
+    width: 30%;
+}
+
+#settings-page .settings-navigation .links {
+    width: calc(100% - 5px);
+}
+
+#settings-page .settings-navigation a {
+    border-bottom: none;
+    
+    color: orangered;
+    
+    display: block;
+
+    font-weight: bold;
+    font-size: 200%;
+}
+
+#settings-page .settings-content {
+    width: 70%;
+}
