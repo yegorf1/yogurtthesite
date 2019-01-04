@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import * as Posts from "./Posts";
 import * as Auth from "./Auth";
+import * as Publishers from "./Publishers";
 
 export default function configureStore (history, initialState) {
   const reducers = {
     posts: Posts.reducer,
-    auth: Auth.reducer
+    auth: Auth.reducer,
+    publishers: Publishers.reducer,
   };
 
   const middleware = [
