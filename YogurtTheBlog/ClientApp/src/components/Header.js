@@ -1,6 +1,5 @@
 import '../stylesheets/Header.css';
 import * as React from "react";
-import {Link} from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
 import {bindActionCreators} from "redux";
 import {actionCreators} from "../store/Auth";
