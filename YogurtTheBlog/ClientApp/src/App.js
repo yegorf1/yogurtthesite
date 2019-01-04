@@ -8,6 +8,7 @@ import Resume from "./components/Resume";
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import EditPostPage from "./components/EditPostPage";
+import SettingsPage from "./components/SettingsPage";
 
 export default () => (
     <Layout>
@@ -19,5 +20,6 @@ export default () => (
         <Route exact path='/login' component={LoginPage}/>
         <Route exact path='/register' component={RegisterPage}/>
         <Route exact path='/new' component={EditPostPage}/>
+        <Route path="/settings" component={SettingsPage}/>
     </Layout>
 );
