@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import connect from "react-redux/es/connect/connect";
 import {bindActionCreators} from "redux";
 import {actionCreators} from "../store/Auth";
+import NavLink from "react-router-dom/es/NavLink";
 
 class Header extends React.Component {
     getLinks() {
@@ -23,6 +24,11 @@ class Header extends React.Component {
                     link: '/new',
                     text: 'Новый пост'
                 });
+                
+                links.push({
+                    link: '/settings',
+                    text: 'Настройки'
+                })
             }
             
             links.push({
@@ -42,9 +48,9 @@ class Header extends React.Component {
                     {
                         this.getLinks().map(link => (
                             <div key={link.text} className="link-group">
-                                <Link to={link.link} onClick={link.onClick}>
+                                <NavLink to={link.link} onClick={link.onClick}>
                                     {link.text}
-                                </Link>
+                                </NavLink>
                             </div>
                         ))
                     }
